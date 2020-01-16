@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,66 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'Vrndavana'
+];
+
+followersArray.forEach(user => {
+  axios.get('https://api.github.com/users/' + user)
+  .then( response => {
+      entryPoint.append(createCard(response))
+  })
+  .catch( err => {
+    console.log('Nothing to display.', err);
+  })
+})
+// Page Target
+const entryPoint = document.querySelector('.cards');
+// Function
+function createCard(userObj){
+  const card = document.createElement('div'),
+        userImg = document.createElement('img'),
+        cardInfo = document.createElement('div'),
+        name = document.createElement('h3'),
+        username = document.createElement('p'),
+        loc = document.createElement('p'),
+        prof = document.createElement('p'),
+        profLink = document.createElement('a'),
+        foll = document.createElement('p'),
+        following = document.createElement('p'),
+        bio = document.createElement('p');
+  // Classes
+  card.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+  // Append
+  card.append(userImg);
+  card.append(username);
+  card.append(cardInfo);
+  cardInfo.append(name);
+  cardInfo.append(username);
+  cardInfo.append(loc);
+  cardInfo.append(prof);
+  prof.append(profLink);
+  cardInfo.append(foll);
+  cardInfo.append(following);
+  cardInfo.append(bio);
+  // Text Contect
+  userImg.src = userObj.data.avatar_url;
+  name.textContent = userObj.data.name;
+  username.textContent = userObj.data.login;
+  loc.textContent = userObj.data.location;
+  prof.textContent = `Profile: ${userObj.data.prof}`; 
+  profLink.textContent = userObj.data.html_url;
+  foll.textContent = `Followers: ${userObj.data.followers}`; 
+  following.textContent = `Following: ${userObj.data.following}`;  
+  bio.textContent = `Bio: ${userObj.data.bio}`;
+  return card;
+}
