@@ -54,6 +54,9 @@
   bigknell
 */
 
+
+
+// Array of Git 
 const followersArray = [
   'SethC16',
   'alecdye',
@@ -62,7 +65,7 @@ const followersArray = [
   'richknicks',
   'Vrndavana'
 ];
-
+// ForEach
 followersArray.forEach(user => {
   axios.get('https://api.github.com/users/' + user)
   .then( response => {
@@ -100,19 +103,21 @@ function createCard(userObj){
   cardInfo.append(username);
   cardInfo.append(loc);
   cardInfo.append(prof);
-  prof.append(profLink);
   cardInfo.append(foll);
   cardInfo.append(following);
   cardInfo.append(bio);
-  // Text Contect
+  // Text Content
   userImg.src = userObj.data.avatar_url;
   name.textContent = userObj.data.name;
   username.textContent = userObj.data.login;
   loc.textContent = userObj.data.location;
-  prof.textContent = `Profile: ${userObj.data.prof}`; 
+  prof.textContent = `Profile: `; 
   profLink.textContent = userObj.data.html_url;
+  profLink.setAttribute('href', userObj.data.html_url);
   foll.textContent = `Followers: ${userObj.data.followers}`; 
   following.textContent = `Following: ${userObj.data.following}`;  
   bio.textContent = `Bio: ${userObj.data.bio}`;
+//  Prof.Append ProfLink MUST BE UNDERNEATH TEXT CONTENT -JS- Cascades
+   prof.append(profLink);
   return card;
 }
