@@ -55,11 +55,11 @@
 */
 
 const followersArray = [
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell',
+  'SethC16',
+  'alecdye',
+  'M-PAW',
+  'AliciaPetgrave',
+  'richknicks',
   'Vrndavana'
 ];
 
